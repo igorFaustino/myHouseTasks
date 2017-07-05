@@ -2,10 +2,10 @@ var express = require('express');
 var router = express.Router();
 var mongojs = require('mongojs');
 var dbconfig = require('../dbconfig');
-var db = mongojs();
+var db = mongojs('mongodb://' + dbconfig.user + ':' + dbconfig.password + '@ds163340.mlab.com:63340/housetask_cm', ['tasks']);
 
 router.get('/tasks', function (req, res, next) {
-	db.inventory.find(function(err, tasks){
+	db.tasks.find(function(err, tasks){
 		if(err){
 			res.send(err);
 		}
