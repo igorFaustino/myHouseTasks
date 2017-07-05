@@ -1,3 +1,7 @@
+# database credentials
+/dbconfig.js
+dbconfig.js
+
 # Logs
 logs
 *.log
@@ -56,5 +60,3 @@ typings/
 
 # dotenv environment variables file
 .env
-
-# database credentials
