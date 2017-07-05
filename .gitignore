@@ -58,3 +58,4 @@ typings/
 .env
 
 # database credentials
+dbconfig.js
