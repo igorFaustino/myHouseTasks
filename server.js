@@ -5,11 +5,13 @@ const bodyParser = require('body-parser'); // pull information from HTML POST
 const cors = require('cors');
 const passport = require('passport')
 const mongoose = require('mongoose'); // database
-const config = require('./config/database.js');
-console.log(config.database);
+const config = require('./config/database.js'); // database config
 
+// database connect
 mongoose.connect(config.database);
 
+
+// on connetion
 mongoose.connection.on('connected', function () {
 	console.log('Connect to database')
 })
@@ -32,7 +34,7 @@ app.use(cors());
 // app.engine('html', require('ejs').renderFile); 
  
 // Set Static Folder 
-app.use(express.static(path.join(__dirname, 'client'))); 
+app.use(express.static(path.join(__dirname, 'public'))); 
  
 // Body Parser MW 
 app.use(bodyParser.json()); 

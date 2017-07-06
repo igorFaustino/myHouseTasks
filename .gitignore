@@ -1,6 +1,7 @@
 # database credentials
 /dbconfig.js
 dbconfig.js
+config/database.js
 
 # Logs
 logs
