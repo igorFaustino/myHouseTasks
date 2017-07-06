@@ -1,29 +1,47 @@
-var express = require('express');
-var path = require('path');
-var bodyParser = require('body-parser');
+// Config
+const express = require('express'); // require express
+const path = require('path'); // Require path module -> simplify work with path 
+const bodyParser = require('body-parser'); // pull information from HTML POST
+const cors = require('cors');
+const passport = require('passport')
+const mongoose = require('mongoose'); // database
+const config = require('./config/database.js');
+console.log(config.database);
 
-var index = require('./routes/index');
-var tasks = require('./routes/tasks');
+mongoose.connect(config.database);
 
-var port = 3000;
+mongoose.connection.on('connected', function () {
+	console.log('Connect to database')
+})
 
-var app = express();
+var index = require('./routes/index'); 
+var user = require('./routes/users'); 
+ 
 
-// view engine
-app.set('views', path.join(__dirname, 'views')); 
-app.set('view engine', 'ejs');
-app.engine('html', require('ejs').renderFile);
+// port number
+var port = 3000; 
+ 
+var app = express(); 
+ 
+// CORS MW
+app.use(cors());
 
-// Set Static Folder
-app.use(express.static(path.join(__dirname, 'client')));
+// view engine 
+// app.set('views', path.join(__dirname, 'views'));  
+// app.set('view engine', 'ejs'); 
+// app.engine('html', require('ejs').renderFile); 
+ 
+// Set Static Folder 
+app.use(express.static(path.join(__dirname, 'client'))); 
+ 
+// Body Parser MW 
+app.use(bodyParser.json()); 
+app.use(bodyParser.urlencoded({extended: false})); 
 
-// Body Parser MW
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
-
-app.use('/', index);
-app.use('/api', tasks);
-
-app.listen(port, function(){
-	console.log('Server started on port ' + port);
+// routes
+app.use('/', index); 
+app.use('/users', user); 
+ 
+app.listen(port, function(){ 
+  console.log('Server started on port ' + port); 
 });
