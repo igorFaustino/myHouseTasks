@@ -8,7 +8,9 @@ const mongoose = require('mongoose'); // database
 const config = require('./config/database.js'); // database config
 
 // database connect
-mongoose.connect(config.database);
+mongoose.connect(config.database, {
+	useMongoClient: true,
+});
 
 
 // on connetion
@@ -39,6 +41,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Body Parser MW 
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({extended: false})); 
+
+// Passport MW
+app.use(passport.initialize());
+app.use(passport.session());
+
+require('./config/passport.js')(passport);
 
 // routes
 app.use('/', index); 
