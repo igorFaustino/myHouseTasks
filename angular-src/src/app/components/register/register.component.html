@@ -1,3 +1,38 @@
-<p>
-  register works!
-</p>
+<div class="margin">
+	<h2 class="text-center">Cadastrar Usuario</h2>
+	<div class="alert alert-danger text-center margin" role="alert" *ngIf="validateAllFields == false">
+		Por favor preencha todos os campos!
+	</div>
+	<form (submit)="onRegisterSubmit()" class="margin">
+		<!-- name -->
+		<div class="form-group" [ngClass]="{'has-danger': validateAllFields == false && name == undefined}">
+			<input class="form-control" type="text" [(ngModel)]="name" name="name" id="name" placeholder="Nome do usuario">
+		</div>
+		<!-- username -->
+		<div class="form-group" [ngClass]="{'has-danger': validateAllFields == false && username == undefined}">
+			<input class="form-control" type="text" [(ngModel)]="username" name="username" id="username" placeholder="Username">
+		</div>
+		<!-- email -->
+		<div class="form-group" [ngClass]="{'has-danger': validateEmail == false || (validateAllFields == false && email == undefined), 'has-success': validateEmail}" >
+			<input (input)="onKeyUpEmail($event)" (keyup)="onKeyUpConfirmEmail($event)" class="form-control" type="email" [(ngModel)]="email" name="email" id="email" placeholder="Email">
+			<div class="form-control-feedback" *ngIf="validateEmail == false">Por favor utilize um email valido!</div>
+		</div>
+		<!-- confirm email -->
+		<div class="form-group" [ngClass]="{'has-danger': validateConfirmEmail == false || (validateAllFields == false && confirmEmail == undefined), 'has-success': validateConfirmEmail}" >
+			<input (input)="onKeyUpConfirmEmail($event)" class="form-control" type="email" [(ngModel)]="confirmEmail" name="confirmEmail" id="confirmEmail" placeholder="Confirmar email">
+			<div class="form-control-feedback" *ngIf="validateConfirmEmail == false">Emails são diferentes!</div>
+		</div>
+		<!-- password -->
+		<div class="form-group" [ngClass]="{'has-success': validatePassword && password != undefined, 'has-danger': validateAllFields == false && password == undefined}">
+			<input (input)="onKeyUpPassword($event)" class="form-control" type="password" [(ngModel)]="password" name="password" id="password" placeholder="Senha">
+		</div>
+		<!-- confirm password -->
+		<div class="form-group" [ngClass]="{'has-danger': validatePassword == false || (validateAllFields == false && confirmPassword == undefined), 'has-success': validatePassword && confirmPassword != undefined}">
+			<input (input)="onKeyUpPassword($event)" class="form-control" type="password" [(ngModel)]="confirmPassword" name="confirmPassword" id="confirmPassword" placeholder="confirmar senha">
+			<div class="form-control-feedback" *ngIf="validatePassword == false">Senhas são diferentes!</div>
+		</div>
+		<div class="d-flex justify-content-center">
+			<button class="btn btn-outline-success btn-lg">Cadastrar</button>
+		</div>
+	</form>
+</div>
