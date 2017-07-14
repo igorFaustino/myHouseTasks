@@ -28,12 +28,7 @@ var port = 5000;
 var app = express(); 
  
 // CORS MW
-app.use(cors());
-
-// view engine 
-// app.set('views', path.join(__dirname, 'views'));  
-// app.set('view engine', 'ejs'); 
-// app.engine('html', require('ejs').renderFile); 
+app.use(cors()); 
  
 // Set Static Folder 
 app.use(express.static(path.join(__dirname, 'public'))); 

@@ -1,8 +1,5 @@
-<div class="margin">
+<div class="margin container">
 	<h2 class="text-center">Cadastrar Usuario</h2>
-	<div class="alert alert-danger text-center margin" role="alert" *ngIf="validateAllFields == false">
-		Por favor preencha todos os campos!
-	</div>
 	<form (submit)="onRegisterSubmit()" class="margin">
 		<!-- name -->
 		<div class="form-group" [ngClass]="{'has-danger': validateAllFields == false && name == undefined}">

@@ -1,3 +1,26 @@
-<p>
-  profile works!
-</p>
+<div class="container" *ngIf="user">
+	<h2 class="margin text-center">Profile</h2>
+	<form class="margin">
+		<div class="form-group row">
+			<label for="name" class="col-2 col-form-label">Nome:</label>
+			<div class="col-10">
+				<input class="form-control" type="text" value="{{user.name}}" id="name">
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="username" class="col-2 col-form-label">Username:</label>
+			<div class="col-10">
+				<input class="form-control" type="text" value="{{user.username}}" id="username">
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="email" class="col-2 col-form-label">Email:</label>
+			<div class="col-10">
+				<input class="form-control" type="email" value="{{user.email}}" id="email">
+			</div>
+		</div>
+		<div class="d-flex justify-content-center margin">
+			<button class="btn btn-outline-success btn-lg">Atualizar</button>
+		</div>
+	</form>
+</div>
