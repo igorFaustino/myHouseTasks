@@ -18,7 +18,6 @@ mongoose.connection.on('connected', function () {
 	console.log('Connect to database')
 })
 
-var index = require('./routes/index'); 
 var user = require('./routes/users'); 
  
 
@@ -44,8 +43,11 @@ app.use(passport.session());
 require('./config/passport.js')(passport);
 
 // routes
-app.use('/', index); 
-app.use('/users', user); 
+app.use('/users', user);
+
+app.get('*', function(req, res) {
+	res.sendFile(path.join(__dirname, 'public/index.html'));
+});
  
 app.listen(port, function(){ 
   console.log('Server started on port ' + port); 

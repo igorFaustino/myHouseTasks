@@ -55,6 +55,23 @@ router.post('/authenticate', function (req, res, next) {
 	});
 });
 
+// UPDATE USER
+router.put('/update', function (req, res, next) {
+	updatedUser = {};
+	updatedUser._id = req.body._id;
+	updatedUser.name = req.body.name;
+	updatedUser.email = req.body.email;
+	updatedUser.username = req.body.username;
+	updatedUser.password = req.body.password;
+	User.updateUser(updatedUser, function (err, user) {
+		if (err) {
+			res.json({success: false, msg: 'Failed to update user'});
+		} else {
+			res.json({success: true, msg: 'User updated'});
+		}
+	})
+});
+
 // PROFILE
 router.get('/profile', passport.authenticate('jwt', { session: false}), function (req, res, next) {
 	res.json({user: req.user});

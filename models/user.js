@@ -51,3 +51,15 @@ module.exports.comparePassword = function (candidatePassword, hash, callback) {
 		callback(null, isMatch);
 	})
 }
+
+module.exports.updateUser = function (updatedUser, callback) {
+	this.getUserById(updatedUser._id, function (err, user) {
+		if (err) throw  err;
+		if (user) {
+			user.name = updatedUser.name;
+			user.username = updatedUser.username;
+			user.email = updatedUser.email;
+			user.save(callback);
+		}
+	});
+}

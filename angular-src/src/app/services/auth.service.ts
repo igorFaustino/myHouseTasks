@@ -45,6 +45,11 @@ export class AuthService {
 		this.user = user;
 	}
 
+	storeUser(updatedUser){
+		localStorage.setItem('user', JSON.stringify(updatedUser));
+		this.user = updatedUser;
+	}
+
 	logout(){
 		this.authToken = null;
 		this.user = null;
@@ -54,6 +59,13 @@ export class AuthService {
 	loadToken(){
 		const token = localStorage.getItem('id_token');
 		this.authToken = token;
+	}
+
+	updateUser(updatedUser){
+		let headers = new Headers();
+		headers.append('Content-Type', 'application/json');
+		return this.http.put('http://localhost:5000/users/update', updatedUser, {headers: headers})
+			.map(res => res.json());
 	}
 
 }
