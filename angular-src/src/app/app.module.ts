@@ -17,6 +17,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { TasklistComponent } from './components/tasklist/tasklist.component';
 import { ShoplistComponent } from './components/shoplist/shoplist.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 // services
 import { ValidateService } from './services/validate.service';
@@ -50,7 +51,8 @@ const routes: Routes = [
 		ProfileComponent,
 		TasklistComponent,
 		ShoplistComponent,
-		SidebarComponent
+		SidebarComponent,
+		FooterComponent
 	],
 	imports: [
 		BrowserModule,
