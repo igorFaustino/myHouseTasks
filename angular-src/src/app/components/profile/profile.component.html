@@ -1,24 +1,18 @@
 <div class="container" *ngIf="user">
 	<h2 class="margin text-center">Profile</h2>
 	<form class="margin" (submit)="onUpdateSubmit()">
-		<div class="form-group row">
-			<label for="name" class="col-2 col-form-label">Nome:</label>
-			<div class="col-10">
-				<input [(ngModel)]="updatedUser.name" class="form-control" type="text" id="name" name="name">
-			</div>
+		<div class="form-group">
+			<label for="name">Nome:</label>	
+			<input [(ngModel)]="updatedUser.name" class="form-control" type="text" id="name" name="name">
 		</div>
-		<div class="form-group row">
-			<label for="username" class="col-2 col-form-label">Username:</label>
-			<div class="col-10">
-				<input [(ngModel)]="updatedUser.username" class="form-control" type="text" id="username" name="username">
-			</div>
+		<div class="form-group">
+			<label for="username">Username:</label>
+			<input [(ngModel)]="updatedUser.username" class="form-control" type="text" id="username" name="username">
 		</div>
-		<div class="form-group row" [ngClass]="{'has-danger': validateEmail == false && user.email != updatedUser.email, 'has-success': validateEmail && user.email != updatedUser.email}" >
-			<label for="username" class="col-2 col-form-label">Email:</label>
-			<div class="col-10">
+		<div class="form-group" [ngClass]="{'has-danger': validateEmail == false && user.email != updatedUser.email, 'has-success': validateEmail && user.email != updatedUser.email}" >
+			<label for="username">Email:</label>
 				<input (input)="onKeyUpEmail($event)" class="form-control" type="email" [(ngModel)]="updatedUser.email" name="email" id="email" placeholder="Email">
 				<div class="form-control-feedback" *ngIf="validateEmail == false">Por favor utilize um email valido!</div>
-			</div>
 		</div>
 		<div *ngIf="user.name != updatedUser.name || user.username != updatedUser.username || user.email != updatedUser.email" class="d-flex justify-content-center margin">
 			<button *ngIf="validateEmail" class="btn btn-lg btn-outline-success" >Atualizar</button>
@@ -29,19 +23,15 @@
 	<h5 class="text-center">Atualizar informações de segurança</h5>
 	<form class="margin" (submit)="onUpdateSubmit()">
 		<!-- password -->
-		<div class="form-group row">
-			<label for="newPassword" class="col-2 col-form-label">Nova senha:</label>
-			<div class="col-10">
-				<input (input)="onKeyUpPassword($event)" class="form-control" type="password" [(ngModel)]="password" name="newPassword" id="newPassword" placeholder="Senha">
-			</div>
+		<div class="form-group">
+			<label for="newPassword">Nova senha:</label>
+			<input (input)="onKeyUpPassword($event)" class="form-control" type="password" [(ngModel)]="password" name="newPassword" id="newPassword" placeholder="Senha">
 		</div>
 		<!-- confirm password -->
-		<div class="form-group row" [ngClass]="{'has-danger': validatePassword == false || (validateAllFields == false && confirmPassword == undefined), 'has-success': validatePassword && confirmPassword != undefined}">
-			<label for="confirmPassword" class="col-2 col-form-label">Confirmar senha:</label>
-			<div class="col-10">
-				<input (input)="onKeyUpPassword($event)" class="form-control" type="password" [(ngModel)]="confirmPassword" name="confirmPassword" id="confirmPassword" placeholder="confirmar senha">
-				<div class="form-control-feedback" *ngIf="validatePassword == false">Senhas são diferentes!</div>
-			</div>
+		<div class="form-group" [ngClass]="{'has-danger': validatePassword == false || (validateAllFields == false && confirmPassword == undefined), 'has-success': validatePassword && confirmPassword != undefined}">
+			<label for="confirmPassword">Confirmar senha:</label>
+			<input (input)="onKeyUpPassword($event)" class="form-control" type="password" [(ngModel)]="confirmPassword" name="confirmPassword" id="confirmPassword" placeholder="confirmar senha">
+			<div class="form-control-feedback" *ngIf="validatePassword == false">Senhas são diferentes!</div>
 		</div>
 	</form>
 </div>
