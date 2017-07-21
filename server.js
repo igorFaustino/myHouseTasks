@@ -18,8 +18,8 @@ mongoose.connection.on('connected', function () {
 	console.log('Connect to database')
 })
 
-var user = require('./routes/users'); 
- 
+const user = require('./routes/users'); 
+const task = require('./routes/tasks');
 
 // port number
 var port = 5000; 
@@ -44,6 +44,7 @@ require('./config/passport.js')(passport);
 
 // routes
 app.use('/users', user);
+app.use('/api/task', task);
 
 app.get('*', function(req, res) {
 	res.sendFile(path.join(__dirname, 'public/index.html'));

@@ -1,22 +1,21 @@
-var express = require('express');
-var router = express.Router();
-var mongojs = require('mongojs');
-var dbconfig = require('../dbconfig');
-var db = mongojs('mongodb://' + dbconfig.user + ':' + dbconfig.password + '@ds163340.mlab.com:63340/housetask_cm', ['tasks']);
+const express = require('express');
+const router = express.Router();
+const passport = require('passport');
+const Task = require('../models/task');
 
 // get all tasks
-router.get('/tasks', function (req, res, next) {
-	db.tasks.find(function(err, tasks){
-		if(err){
+router.get('/tasks', passport.authenticate('jwt', { session: false}), function (req, res, next) {
+	Task.getAllTasks(function (err, task) {
+		if (err) {
 			res.send(err);
 		}
-		res.json(tasks);
+		res.json(task);
 	});
 });
 
 // get a single task
-router.get('/task/:id', function (req, res, next) {
-	db.tasks.findOne({_id: mongojs.ObjectId(req.params.id)}, function(err, task){
+router.get('/task/:id', passport.authenticate('jwt', { session: false}), function (req, res, next) {
+	Task.getTaskById(req.params.id, function(err, task){
 		if(err){
 			res.send(err);
 		}
@@ -25,57 +24,32 @@ router.get('/task/:id', function (req, res, next) {
 });
 
 // Save Task
-router.post('/task', function(req, res, next){
-	var task = req.body;
-	if (!task.title) {
-		res.status(400);
-		res.json({
-			"error": "Bad Data"
-		});
-	} else {
-		db.tasks.save(task, function(err, task){
-			if(err){
-				res.send(err);
-			}
-			res.json(task);
-		});
-	}
-});
+router.post('/task', passport.authenticate('jwt', { session: false}), function(req, res, next){
+	let newTask = new Task({
+		title: req.body.title,
+		isComplete: req.body.isComplete
+	});
 
-// Delete task
-router.delete('/task/:id', function (req, res, next) {
-	db.tasks.remove({_id: mongojs.ObjectId(req.params.id)}, function(err, task){
-		if(err){
-			res.send(err);
+	Task.addTask(newTask, function (err, user) {
+		if (err){
+			res.json({success: false, msg: 'Failed to add task'});
+		} else {
+			res.json({success: true, msg: 'task registered'});
+
 		}
-		res.json(task);
 	});
 });
 
 // Update Task
-router.put('/task/:id', function (req, res, next) {
-	var task = req.body;
-	var updTask = {};
-
-	if(task.title){
-		updTask.title = tasks.title;
-	}
-	if (task.isDone){
-		updTask.isDone = tasks.isDone;	
-	}
-	if (!updTask){
-		res.status(400);
-		res.json({
-			"error":"Bad Data"
-		});
-	} else {
-		db.tasks.update({_id: mongojs.ObjectId(req.params.id)}, updTask, {}, function(err, task){
-			if(err){
-				res.send(err);
-			}
-			res.json(task);
-		});
-	}
+router.put('/task', passport.authenticate('jwt', { session: false}), function (req, res, next) {
+	var updatedTask = req.body;
+	Task.updateTask(updateTask, function (err, task) {
+		if (err) {
+			res.json({success: false, msg: 'Failed to update task'});
+		} else {
+			res.json({success: true, msg: 'task updated'});
+		}
+	});
 });
 
 module.exports = router;

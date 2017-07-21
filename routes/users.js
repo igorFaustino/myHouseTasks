@@ -21,7 +21,7 @@ router.post('/register', function (req, res, next) {
 			res.json({success: true, msg: 'user registered'});
 
 		}
-	})
+	});
 });
 
 // AUTHENTICATE
@@ -56,13 +56,8 @@ router.post('/authenticate', function (req, res, next) {
 });
 
 // UPDATE USER
-router.put('/update', function (req, res, next) {
-	updatedUser = {};
-	updatedUser._id = req.body._id;
-	updatedUser.name = req.body.name;
-	updatedUser.email = req.body.email;
-	updatedUser.username = req.body.username;
-	updatedUser.password = req.body.password;
+router.put('/update', passport.authenticate('jwt', { session: false}), function (req, res, next) {
+	updatedUser = req.body;
 	User.updateUser(updatedUser, function (err, user) {
 		if (err) {
 			res.json({success: false, msg: 'Failed to update user'});
