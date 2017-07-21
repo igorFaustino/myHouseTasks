@@ -1,21 +1,23 @@
-<div class="container">
+<div class="container-fluid">
 	<div class="jumbotron jumbotron-fluid text-center">
 		<h2>Home</h2>
 	</div>
-	<div class="row text-center margin">
-		<div class="col-md-6 margin">
-			<h4>Lista de tarefas</h4>
-			<div class="container text-justify margin">
-				<p>Organize seu dia e seus afazeres com nossa lista de tarefas!<br>Para acessar a lista de tarefas basta selecionar a opção no menu ao lado ou clicar no botão a baixo.</p>
+	<div class="container-fluid">
+		<div class="row text-center margin">
+			<div class="col-md-6 margin">
+				<h4>Lista de tarefas</h4>
+				<div class="container text-justify margin">
+					<p>Organize seu dia e seus afazeres com nossa lista de tarefas!<br>Para acessar a lista de tarefas basta selecionar a opção no menu ao lado ou clicar no botão a baixo.</p>
+				</div>
+				<a class="btn btn-outline-primary btn-lg" [routerLink]="['tasks']" >Lista de tarefas</a>
 			</div>
-			<a class="btn btn-outline-primary btn-lg" [routerLink]="['tasks']" >Lista de tarefas</a>
-		</div>
-		<div class="col-md-6 margin">
-			<h4>Lista de compras</h4>
-			<div class="container text-justify margin">
-				<p>Monte sua lista de compras e salve um preset com seus itens preferido.<br>Para acessar a lista de compras basta selecionar a opção no menu ao lado ou clicar no botão a baixo.</p>
+			<div class="col-md-6 margin">
+				<h4>Lista de compras</h4>
+				<div class="container text-justify margin">
+					<p>Monte sua lista de compras e salve um preset com seus itens preferido.<br>Para acessar a lista de compras basta selecionar a opção no menu ao lado ou clicar no botão a baixo.</p>
+				</div>
+				<a class="btn btn-outline-primary btn-lg" [routerLink]="['shoplist']" >Lista de compras</a>
 			</div>
-			<a class="btn btn-outline-primary btn-lg" [routerLink]="['shoplist']" >Lista de compras</a>
 		</div>
 	</div>
 </div>

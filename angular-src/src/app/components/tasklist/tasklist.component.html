@@ -1,3 +1,25 @@
-<p>
-  tasklist works!
-</p>
+<div class="container-fluid">
+	<div class="jumbotron jumbotron-fluid text-center">
+		<h2>Lista de Tarefas</h2>
+	</div>
+	<div class="container-fluid">
+		<form class="">	
+			<div class="input-group new-task input-group-lg">
+				<input  [(ngModel)]="newTask" type="text" class="form-control" placeholder="Adicionar tarefa!" name="newName">
+				<span class="input-group-btn" >
+					<button *ngIf="newTask != '' && newTask != undefined" class="btn btn-secondary" type="button">Add!</button>
+				</span>
+			</div>
+		</form>
+		<div class="tasks">
+			<div class="row ">
+				<div class="col-sm-1 checkbox">
+					<input type="checkbox" name="" class="form-control">
+				</div>
+				<div class="col-sm-11">
+					adfadkjfdshakj
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
