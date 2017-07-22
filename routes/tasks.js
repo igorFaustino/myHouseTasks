@@ -30,11 +30,11 @@ router.post('/task', passport.authenticate('jwt', { session: false}), function(r
 		isComplete: req.body.isComplete
 	});
 
-	Task.addTask(newTask, function (err, user) {
+	Task.addTask(newTask, function (err, task) {
 		if (err){
 			res.json({success: false, msg: 'Failed to add task'});
 		} else {
-			res.json({success: true, msg: 'task registered'});
+			res.json({success: true, msg: 'task registered', task: task});
 
 		}
 	});
@@ -43,11 +43,23 @@ router.post('/task', passport.authenticate('jwt', { session: false}), function(r
 // Update Task
 router.put('/task', passport.authenticate('jwt', { session: false}), function (req, res, next) {
 	var updatedTask = req.body;
-	Task.updateTask(updateTask, function (err, task) {
+	Task.updateTask(updatedTask, function (err, task) {
 		if (err) {
 			res.json({success: false, msg: 'Failed to update task'});
 		} else {
 			res.json({success: true, msg: 'task updated'});
+		}
+	});
+});
+
+// Delete Task
+router.delete('/task/:id', passport.authenticate('jwt', { session: false}), function (req, res, next) {
+	var id = req.params.id;
+	Task.deleteTask(id, function (err, task) {
+		if (err) {
+			res.json({success: false, msg: 'Failed to delete task'});
+		} else {
+			res.json({success: true, msg: 'task deleted'});
 		}
 	});
 });

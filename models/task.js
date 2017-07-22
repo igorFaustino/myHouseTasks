@@ -42,3 +42,8 @@ module.exports.updateTask = function (updateTask, callback){
 		}
 	})
 }
+
+// delete task
+module.exports.deleteTask = function (id, callback){
+	Task.findById(id).remove(callback);
+}

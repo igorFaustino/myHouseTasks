@@ -44,7 +44,7 @@ require('./config/passport.js')(passport);
 
 // routes
 app.use('/users', user);
-app.use('/api/task', task);
+app.use('/api', task);
 
 app.get('*', function(req, res) {
 	res.sendFile(path.join(__dirname, 'public/index.html'));

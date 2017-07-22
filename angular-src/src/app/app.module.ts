@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FlashMessagesModule } from 'ngx-flash-messages';
 
-// components
+// My components
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
@@ -23,6 +23,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 import { AuthGuardService } from './services/auth-guard.service';
+import { TaskService } from './services/task.service';
+
 
 
 const routes: Routes = [
@@ -64,7 +66,8 @@ const routes: Routes = [
 	providers: [
 		ValidateService,
 		AuthService,
-		AuthGuardService
+		AuthGuardService,
+		TaskService
 	],
 	bootstrap: [AppComponent]
 })
