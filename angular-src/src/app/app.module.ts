@@ -18,12 +18,16 @@ import { TasklistComponent } from './components/tasklist/tasklist.component';
 import { ShoplistComponent } from './components/shoplist/shoplist.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { SelectComponent } from './components/select/select.component';
+import { ListComponent } from './components/list/list.component';
 
 // services
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { TaskService } from './services/task.service';
+import { SelectService } from './services/select.service';
+import { ShoplistService } from './services/shoplist.service';
 
 
 
@@ -34,9 +38,15 @@ const routes: Routes = [
 	{ path: 'profile' , component: ProfileComponent, canActivate: [AuthGuardService] },
 	{ 
 		path: 'dashboard' , component: DashboardComponent, canActivate: [AuthGuardService], children: [
+			{ path: 'shoplist', redirectTo: 'shoplist/select', pathMatch: 'full' },
 			{ path: '' , component: HomeComponent },
 			{ path: 'tasks' , component: TasklistComponent },
-			{ path: 'shoplist' , component: ShoplistComponent }			
+			{ 
+				path: 'shoplist' , component: ShoplistComponent, children: [
+					{ path: 'select' , component: SelectComponent },
+					{ path: 'list' , component: ListComponent }
+				]
+			}			
 		]
 	},
 	{ path: '**', redirectTo:'dashboard' }
@@ -54,7 +64,9 @@ const routes: Routes = [
 		TasklistComponent,
 		ShoplistComponent,
 		SidebarComponent,
-		FooterComponent
+		FooterComponent,
+		SelectComponent,
+		ListComponent
 	],
 	imports: [
 		BrowserModule,
@@ -67,7 +79,9 @@ const routes: Routes = [
 		ValidateService,
 		AuthService,
 		AuthGuardService,
-		TaskService
+		TaskService,
+		SelectService,
+		ShoplistService	
 	],
 	bootstrap: [AppComponent]
 })

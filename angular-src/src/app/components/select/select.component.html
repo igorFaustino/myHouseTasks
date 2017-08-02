@@ -1,0 +1,11 @@
+<div class="container-fluid" >
+	<form (submit) = "onSelectSubmit()" >
+		<select class="form-control form-control-lg select" [(ngModel)]="select" name="select">
+			<option value="" >Nova lista</option>
+			<option *ngFor="let list of lists" value="{{ list._id }}" >{{ list.name }}</option>
+		</select>
+		<div class="d-flex justify-content-center margin">
+			<button class="btn btn-outline-success btn-lg" >Selecionar</button>
+		</div>
+	</form>
+</div>

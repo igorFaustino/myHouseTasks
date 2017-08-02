@@ -1,0 +1,72 @@
+<div class="container-fluid" >
+	<div class="row">
+		<div class="col-md-3">
+			<input type="text" name="listName" [(ngModel)]="list.name" (input)="onNameImput()" class="form-control form-control-lg form" placeholder="Nome da lista" >
+		</div>
+		<div class="col-md-9">
+			<form (submit)="addItem()" >
+				<div class="row container-fluid">
+					<div class="col-md-9">
+						<input type="text" name="newItem" class="form-control form-control-lg form" placeholder="Adicionar item" [(ngModel)]="newItem">
+					</div>
+					<div class="col-md-2">
+						<input type="number" min="1" name="qtd" class="form-control form-control-lg form" placeholder="qtd" [(ngModel)]="qtd">
+					</div>
+					<div class="col-md-1">
+						<button class="btn btn-outline-primary btn-lg form" [disabled]="!newItem || !qtd" >add!</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div class="row margin">
+		<div class="col-md-4" *ngFor="let item of list.itens" >
+			<div class="container" [ngClass]="{'bought': item.isBought}" >
+				<div class="row">
+					<div class="col-sm-2">
+						<input (click)="updateItem(item.name)" type="checkbox" name="buy" class="form-control" [(ngModel)]="item.isBought" >
+					</div>
+					<div class="col-sm-5 text-center">
+						{{ item.name }}
+					</div>
+					<div class="col-sm-3 text-center">
+						<input type="number" name="qtd" min="1" class="form-control" placeholder="qtd" [(ngModel)]="item.qtd" (change)="onQtdInput()">
+					</div>
+					<div class="col-sm-2">
+						<button (click)="removeItem(item.name)" class="btn btn-outline-danger remove-btn">x</button>
+					</div>
+				</div>
+				<hr>
+			</div>
+		</div>
+	</div>
+	<div class="d-flex float-right margin">
+		<button *ngIf="boughtItens > 0" type="button" class="btn btn-outline-primary btn-margin" (click)="unselectAll()" >Desmarcar todos!</button>
+		
+		<!-- Button trigger modal  -->
+		<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target=".bd-example-modal-sm">Deletar lista!</button>
+	</div>
+
+	<!-- modal -->
+	<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Deletar esta lista?</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body text-justify">
+					<p>Tem certeza que deseja deletar esta lista de compras?</p>
+					<p>Todo o conteudo será perdido</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancelar</button>
+					<button (click)="delete()" type="button" class="btn btn-outline-danger" data-dismiss="modal">Deletar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

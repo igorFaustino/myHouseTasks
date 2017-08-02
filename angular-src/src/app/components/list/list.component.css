@@ -1,0 +1,15 @@
+.remove-btn{
+	padding-top: 2px;
+	padding-bottom: 2px;
+	padding-left: 8px;
+	padding-right: 8px;
+}
+
+.bought {
+	text-decoration: line-through;
+	color: #888888; 
+}
+
+.btn-margin {
+	margin-right: 5px;
+}

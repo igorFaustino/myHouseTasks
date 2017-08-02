@@ -20,6 +20,7 @@ mongoose.connection.on('connected', function () {
 
 const user = require('./routes/users'); 
 const task = require('./routes/tasks');
+const shopList = require('./routes/shopList');
 
 // port number
 var port = 5000; 
@@ -45,6 +46,7 @@ require('./config/passport.js')(passport);
 // routes
 app.use('/users', user);
 app.use('/api', task);
+app.use('/api', shopList);
 
 app.get('*', function(req, res) {
 	res.sendFile(path.join(__dirname, 'public/index.html'));

@@ -4,10 +4,10 @@
 	</div>
 	<div class="container-fluid">
 		<form (submit)="addTask()" >	
-			<div class="input-group new-task input-group-lg">
-				<input  [(ngModel)]="newTitle" type="text" class="form-control" placeholder="Adicionar tarefa!" name="newTask">
+			<div class="input-group input-group-lg">
+				<input  [(ngModel)]="newTitle" type="text" class="form-control new-task" placeholder="Adicionar tarefa!" name="newTask">
 				<span class="input-group-btn" >
-					<button *ngIf="newTitle != '' && newTitle != undefined" class="btn btn-secondary">Add!</button>
+					<button *ngIf="newTitle != '' && newTitle != undefined" class="btn btn-secondary new-task">Add!</button>
 				</span>
 			</div>
 		</form>
