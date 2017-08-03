@@ -32,7 +32,6 @@ export class ListComponent implements OnInit {
 		this.list = {};
 		this.newItem = null;
 		this.qtd = null;
-
 		// load list
 		if(this.selectService.getSelectOp() != "" && this.selectService.getSelectOp() != undefined){
 			this.shoplistService.getList(this.selectService.getSelectOp()).subscribe(list => {
@@ -40,18 +39,36 @@ export class ListComponent implements OnInit {
 				this.setBoughtItens(list);
 			});
 		} else { // if list don't exists create a new list
-			let newList = {
-				name: "Lista de compras",
-				itens: []
-			}
-			this.shoplistService.addList(newList).subscribe(msg => {
-				if(msg.success){
-					this.list = msg.shopList;
-				} else {
-					this.flashMessagesServices.show('Algo de errado não esta certo!\nPor favor tente de novo', {classes: ['alert', 'alert-danger', 'text-center']});
-					this.selectService.cleanSelect();
-					this.router.navigateByUrl('/dashboard/shoplist');
+			var count = 0;
+			this.shoplistService.getLists().subscribe(lists => {
+				for (var i = lists.length - 1; i >= 0; i--) {
+					if(lists[i].name){
+						if(lists[i].name.indexOf('new list') == 0){
+							count++;
+						}
+					}
 				}
+
+				if(count == 0){
+					var newName = "new list";
+				} else {
+					var newName = 'new list(' + count + ')';
+				}
+
+				let newList = {
+					name: newName,
+					itens: []
+				}
+
+				this.shoplistService.addList(newList).subscribe(msg => {
+					if(msg.success){
+						this.list = msg.shopList;
+					} else {
+						this.flashMessagesServices.show('Algo de errado não esta certo!\nPor favor tente de novo', {classes: ['alert', 'alert-danger', 'text-center']});
+						this.selectService.cleanSelect();
+						this.router.navigateByUrl('/dashboard/shoplist');
+					}
+				});
 			});
 		}
 	}
@@ -136,5 +153,19 @@ export class ListComponent implements OnInit {
 			}
 		}
 		this.shoplistService.updateList(this.list).subscribe();
+	}
+
+	setNewName(){
+		var count = 0;
+		this.shoplistService.getLists().subscribe(lists => {
+			for (var i = lists.length - 1; i >= 0; i--) {
+				if(lists[i].name){
+					if(lists[i].name.indexOf('Nova Lista') != -1){
+						count++;
+					}
+				}
+			}
+
+		});
 	}
 }
