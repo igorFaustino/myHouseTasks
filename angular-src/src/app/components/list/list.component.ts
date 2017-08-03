@@ -32,6 +32,7 @@ export class ListComponent implements OnInit {
 		this.list = {};
 		this.newItem = null;
 		this.qtd = null;
+
 		// load list
 		if(this.selectService.getSelectOp() != "" && this.selectService.getSelectOp() != undefined){
 			this.shoplistService.getList(this.selectService.getSelectOp()).subscribe(list => {
@@ -104,7 +105,6 @@ export class ListComponent implements OnInit {
 	}
 
 	onQtdInput(){
-		console.log(this.list);
 		this.shoplistService.updateList(this.list).subscribe();
 	}
 

@@ -21,17 +21,21 @@
 	</form>
 	<hr class="margin">
 	<h5 class="text-center">Atualizar informações de segurança</h5>
-	<form class="margin" (submit)="onUpdateSubmit()">
+	<form class="margin" (submit)="onPasswordSubmit()">
 		<!-- password -->
 		<div class="form-group">
 			<label for="newPassword">Nova senha:</label>
 			<input (input)="onKeyUpPassword($event)" class="form-control" type="password" [(ngModel)]="password" name="newPassword" id="newPassword" placeholder="Senha">
 		</div>
 		<!-- confirm password -->
-		<div class="form-group" [ngClass]="{'has-danger': validatePassword == false || (validateAllFields == false && confirmPassword == undefined), 'has-success': validatePassword && confirmPassword != undefined}">
+		<div class="form-group" [ngClass]="{'has-danger': validatePassword == false && password, 'has-success': validatePassword && confirmPassword != undefined && password}">
 			<label for="confirmPassword">Confirmar senha:</label>
 			<input (input)="onKeyUpPassword($event)" class="form-control" type="password" [(ngModel)]="confirmPassword" name="confirmPassword" id="confirmPassword" placeholder="confirmar senha">
-			<div class="form-control-feedback" *ngIf="validatePassword == false">Senhas são diferentes!</div>
+			<div class="form-control-feedback" *ngIf="validatePassword == false && password">Senhas são diferentes!</div>
+		</div>
+		<div *ngIf="password" class="d-flex justify-content-center margin">
+			<button *ngIf="validatePassword" class="btn btn-lg btn-outline-success" >Atualizar</button>
+			<button *ngIf="!validatePassword" class="btn btn-lg btn-outline-danger" disabled >Atualizar</button>
 		</div>
 	</form>
 </div>

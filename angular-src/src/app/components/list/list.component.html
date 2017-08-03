@@ -7,7 +7,7 @@
 			<form (submit)="addItem()" >
 				<div class="row container-fluid">
 					<div class="col-md-9">
-						<input type="text" name="newItem" class="form-control form-control-lg form" placeholder="Adicionar item" [(ngModel)]="newItem">
+						<input type="text" name="newItem" class="form-control form-control-lg form" placeholder="Adicionar item" [(ngModel)]="newItem" autofocus>
 					</div>
 					<div class="col-md-2">
 						<input type="number" min="1" name="qtd" class="form-control form-control-lg form" placeholder="qtd" [(ngModel)]="qtd">

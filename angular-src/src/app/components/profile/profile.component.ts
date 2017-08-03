@@ -15,9 +15,11 @@ export class ProfileComponent implements OnInit {
 		_id?: any,
 		name?: any,
 		email?: any,
-		username?: any,
-		password?: any
+		username?: any
 	};
+	password: any;
+	confirmPassword: any;
+	validatePassword = false;
 	validateEmail = true;
 
 	constructor(
@@ -31,7 +33,7 @@ export class ProfileComponent implements OnInit {
 		this.authService.getProfile().subscribe(profile => {
 			this.user = profile.user;
 			this.updatedUser = Object.assign({}, this.user);
-		})
+		});
 	}
 
 	// validate email
@@ -44,8 +46,12 @@ export class ProfileComponent implements OnInit {
 	}
 
 	onUpdateSubmit() {
-		const updatedUser = Object.assign({}, this.updatedUser);
-		console.log(updatedUser);
+		const updatedUser = {
+			_id: this.updatedUser._id,
+			name: this.updatedUser.name,
+			email: this.updatedUser.email,
+			username: this.updatedUser.username
+		};
 		this.authService.updateUser(updatedUser).subscribe(data =>{
 			if (data.success){
 				this.flashMessagesServices.show('Usuario atualizado com sucesso!', {classes: ['alert', 'alert-success', 'text-center']});
@@ -57,4 +63,31 @@ export class ProfileComponent implements OnInit {
 		});
 	}
 
+	onPasswordSubmit() {
+		if ( this.confirmPassword != this.password ){
+			return false;
+		}
+		let newPassword = {
+			password: this.password
+		};
+		this.authService.updatePassword(this.updatedUser._id, newPassword).subscribe(data => {
+			if (data.success){
+				this.flashMessagesServices.show('Usuario atualizado com sucesso!', {classes: ['alert', 'alert-success', 'text-center']});
+				this.authService.storeUser(this.updatedUser);
+				this.user = this.updatedUser;
+				this.password = undefined;
+				this.confirmPassword = undefined;
+			} else {
+				this.flashMessagesServices.show('Algo de errado não esta certo!\nPor favor tente de novo', {classes: ['alert', 'alert-danger', 'text-center']});
+			}			
+		});
+	}
+
+	onKeyUpPassword(event: any){
+		if(!this.validateService.validatePassword(this.password, this.confirmPassword)){
+			this.validatePassword = false;
+		} else {
+			this.validatePassword = true;
+		}
+	}
 }

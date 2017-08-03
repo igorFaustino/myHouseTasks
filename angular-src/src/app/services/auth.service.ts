@@ -68,4 +68,14 @@ export class AuthService {
 			.map(res => res.json());
 	}
 
+	updatePassword(id, updatedPassword){
+		let headers = new Headers();
+		this.loadToken();
+		headers.append('Content-Type', 'application/json');
+		headers.append('Authorization', this.authToken);
+		return this.http.put('http://localhost:5000/users/update/' + id, updatedPassword, {headers: headers})
+			.map(res => res.json());
+
+	}
+
 }

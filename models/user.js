@@ -70,3 +70,16 @@ module.exports.updateUser = function (updatedUser, callback) {
 		}
 	});
 }
+
+// update password
+module.exports.updatePassword = function (id, updatedPassword, callback) {
+	this.getUserById(id, function (err, user) {
+		bcrypt.genSalt(10, function (err, salt) {
+			bcrypt.hash(updatedPassword, salt, function (err, hash) {
+				if (err) throw  err;
+				user.password = hash;
+				user.save(callback);
+			});
+		});
+	});
+}

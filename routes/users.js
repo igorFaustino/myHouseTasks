@@ -64,7 +64,20 @@ router.put('/update', passport.authenticate('jwt', { session: false}), function 
 		} else {
 			res.json({success: true, msg: 'User updated'});
 		}
-	})
+	});
+});
+
+// UPDATE PASSWORD
+router.put('/update/:id', passport.authenticate('jwt', { session: false}), function (req, res, next) {
+	id = req.params.id;
+	updatedPassword = req.body.password;
+	User.updatePassword(id, updatedPassword, function (err, user) {
+		if (err) {
+			res.json({success: false, msg: 'Failed to update password'});
+		} else {
+			res.json({success: true, msg: 'Password updated'});
+		}
+	});
 });
 
 // PROFILE
