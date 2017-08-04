@@ -494,6 +494,9 @@ var ListComponent = (function () {
         this.shoplistService.updateList(this.list).subscribe();
     };
     ListComponent.prototype.addItem = function () {
+        if (!this.newItem || !this.qtd) {
+            return false;
+        }
         for (var i = this.list.itens.length - 1; i >= 0; i--) {
             if (this.list.itens[i].name == this.newItem) {
                 this.flashMessagesServices.show('Item já está cadastrado!', { classes: ['alert', 'alert-danger', 'text-center'] });
